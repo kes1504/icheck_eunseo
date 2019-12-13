@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:10px;overflow:hidden;}
+    .slide ul{width:calc(100% * 4);display:flex;animation:slide 8s infinite;}
+    .slide li{width:calc(100% / 4);height:10px;}
+    .slide li:nth-child(1){background:rgb(72, 193, 133);}
+    .slide li:nth-child(2){background:rgb(255,170,43);}
+    .slide li:nth-child(3){background:rgb(145, 218, 255);}
+    .slide li:nth-child(4){background:rgb(255, 104, 129);}
+    @keyframes 
+    slide {
+      0% {margin-left:0;} /* 0 ~ 10  : 정지 */
+      10% {margin-left:0;} /* 10 ~ 25 : 변이 */
+      25% {margin-left:-100%;} /* 25 ~ 35 : 정지 */
+      35% {margin-left:-100%;} /* 35 ~ 50 : 변이 */
+      50% {margin-left:-200%;}
+      60% {margin-left:-200%;}
+      75% {margin-left:-300%;}
+      85% {margin-left:-300%;}
+      100% {margin-left:0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+<nav class="navbar navbar-expand-lg navbar-dark" style= "background-color: #ffffff"></style>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01" style="padding-left: 30px" >
+      <a href="/"><img class="mb-7" src="/static/img/아이책.png" alt="" width="60" height="76"></a>
+    
+
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/" style="color:#48C185; padding:30px;"> Feed <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active btn-lg">
+        <a class="nav-link" href="/kids" style="color:#48C185; padding:5px; font-weight:bold; margin:15px;"> Kids <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="/mypage" style="color:#48C185; padding:30px;"> My Page <span class="sr-only">(current)</span></a>
+      </li>
+      <% if(locals.user && locals.user.isAdmin == 1) { %>
+        <li class="nav-item active">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+      <% } %>
+    </ul>
+
+    <% if(locals.user) { %>
+    <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+      <li class="nav-item">
+        <a class="nav-item nav-link mr-md-2" href="#" style="color:#48C185;" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= locals.user.email %>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-secondary my-2 my-sm-0" href="/account/logout">Logout</a>
+      </li>
+    </ul>
+    <% } else { %>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <a class="nav-link btn btn-secondary my-2 my-sm-0" href="/account/login/check">Login</a>
+      <a class="nav-link btn btn-outline-secondary my-2 my-sm-0" href="/account/signup/check">Sign up</a>
+    </div>
+    <% } %>
+  </div>
+</nav>

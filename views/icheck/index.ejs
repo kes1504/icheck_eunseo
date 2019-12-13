@@ -1,0 +1,73 @@
+<%- include('includes/header'); -%>
+<%- include('includes/nav'); -%>
+
+<div class="container"  style="margin-block-start:0px; "> 
+  <div class="row">
+      <div class="col">
+          <hr>
+<h1> Feed </h1>
+<style> h1 {color:darkorange; font-size:30px} </style>
+<hr>    
+<br>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <button type="button" class="btn btn-outline-warning" onclick= "location.href='/icheck'">2019</button>
+  </li>
+  
+  <% for(var i=0; i < category.length; i++) { %>
+    <a class="nav-link <% if (selectedCategory==category[i].id) { %>active<% } %>" 
+      style="color:rgb(104, 104, 104);  font-weight:bold; margin: 5.5px; margin-top:0.5px;" 
+      href="?category=<%= category[i].id %>">
+      <%= category[i].title %></a>
+      </nav>
+  <% } %>
+    </ul>
+    
+    
+
+<% if (feed.length>0) { %>
+<ul class="list-unstyled">
+  <% for(var i=0; i < feed.length; i++) { %>
+  <li class="media">
+
+    <% if (typeof feed[i].upload !== 'undefined' && feed[i].upload) { %>
+      <a href="/icheck/<%= feed[i].id %>"><img class="mr-3" src="/uploads/<%= feed[i].upload %>"width="300" height="200"></a>
+    <% } %>
+      
+    <div class="media-body">
+      <h5 class="mt-0 mb-1" > <a href="/icheck/<%= feed[i].id %>" class="text-dark"><%= feed[i].title %></a></h5>
+      <%= feed[i].author %>
+    </div>
+  </li>
+  <% } %>
+</ul>
+
+<% } else { %>
+  <br>
+  <a href="/"><img class="mb-4" src="/static/img/zz.png" alt="" width="700" height="100"></a>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Add your kids' daily life!</p>
+      </blockquote>
+    </div>
+  </div>
+
+<% } %>
+
+<div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group" role="group" aria-label="First group">
+  </div>
+  <div class="input-group">
+    <a href="/icheck/add" class="btn btn-warning">피드작성</a>
+  </div>
+</div>
+<br>
+<br>
+</div>
+
+<style>
+.nav-pills .nav-link.active {
+  background-color:#FFD500;
+}
+</style>

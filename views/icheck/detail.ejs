@@ -1,0 +1,57 @@
+<%- include('includes/header'); -%>
+<%- include('includes/nav'); -%>
+
+
+  
+  </div>
+
+  <% if (feed) { %>
+  <div class="high">
+    <div class="col">
+        <h2> <%= feed.title %></h2>
+         From: <%= feed.author %></h6> </tr>
+          <small class="text-muted" ><div class="text-sm-left">
+            Entry Date: <%= moment(feed.inserted).format('YYYY-MM-DD h:mm:ss a') %><% if (feed.updated) { %>/ 
+            Edit Date: <%= moment(feed.updated).format('YYYY-MM-DD h:mm:ss a') %><% } %> </small>
+              <tr> <h6> <th scope="col"> 
+                  
+                <table class="table"><thead>
+          
+      </p>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col" style="white-space: pre-line; ">
+      <%- feed.desc %>
+    </div>
+    <div class="col">
+      <% if (typeof feed.upload !== 'undefined' && feed.upload) { %>
+        <img src="/uploads/<%= feed.upload %>">
+      <% } %>
+
+    </div>
+    
+  </div>
+
+
+
+  <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+
+    <div class="btn-group" role="group" aria-label="First group">
+
+      <a href="/icheck/<%= feed.id %>/edit" class="btn btn-outline-white p-3 mb-2 bg-warning text-white">edit</a>
+     <br> <a href="/icheck/<%= feed.id %>/delete" class="btn btn-outline-white  p-3 mb-2 bg-warning text-white">delete</a>
+    </div>
+    <div class="input-group">
+      <a href="/icheck/" class="btn btn-outline-info p-3 mb-2 bg-info text-white">Back to list</a>
+    </div>
+  </div>
+<% } else { %>
+  <p>Not exist</p>
+<% } %>
+
+
+</div>
+<%- include('includes/footer'); -%>

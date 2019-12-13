@@ -1,0 +1,113 @@
+<%- include('../icheck/includes/header'); -%>
+<%- include('nav'); -%>
+
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <hr>
+          <h1> Kids </h1>
+    <style> h1 {color:darkorange; font-size:30px;} </style>
+          <!-- Styles from https://getbootstrap.com/docs/4.3/components/forms/#form-controls -->
+          <hr>
+          <br>
+  
+  <div class="card-deck">
+      <div class="card">
+                    <br>
+          <% if (kids.length>0) { %>
+            <ul class=card-title calss="list-group list-group-flush">
+              <% for(var i=0; i < kids.length; i++) { %>
+                <li class="list-group-item" style="float:left; width: 25%; padding:5px; border: 20px solid white; text-align:center; font-size:20px;">
+                    <% if (typeof kids[i].upload !== 'undefined' && kids[i].upload) { %>
+                      <a><img class="mr-3" src="/uploads/<%= kids[i].upload %>" width=150; height=150; overflow=hidden;  ></a>
+                    <% } %> <br>            
+                 <strong> <%= kids[i].name %></strong> <br>
+                  <%= kids[i].clas %>
+            <div class="action">
+                <a href="/kids/" class="btn btn-outline-warning">Edit</a>
+                <button class="btn btn-outline-secondary"  onclick="myFunction(<%= kids[i].kid %>);">Delete</button>
+            
+                
+                <script>
+                  function post(path, parameters) {
+                    var form = $('<form></form>');
+
+                    form.attr("method", "post");
+                    form.attr("action", path);
+
+                    $.each(parameters, function(key, value) {
+                        var field = $('<input></input>');
+
+                        field.attr("type", "hidden");
+                        field.attr("name", key);
+                        field.attr("value", value);
+
+                        form.append(field);
+                    });
+
+                    // The form needs to be a part of the document in
+                    // order for us to be able to submit it.
+                    $(document.body).append(form);
+                    form.submit();
+                }
+
+
+                function myFunction(kidId) {
+                 var result = confirm("Do you really wanna delete?");
+                 if (result) {
+                   post('/kids/'+kidId, []); 
+                 }
+                }
+                </script>
+            </div>
+        
+                </li>
+              <% } %>
+            </ul>
+          <% } else { %>
+            <a href="/"><img class="mb-4" src="/static/img/zz.png" alt="" width="700" height="100"></a>
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>No kids exist yet!</p>
+                </blockquote>
+              </div>
+            </div>
+          <% } %>
+      </div>
+  </div>    
+  </div>
+  <%- include('../icheck/includes/footer'); -%>
+  
+  <form method="post" enctype="multipart/form-data">
+    <div class="form-group"> <br><br><br><br><br><br>
+      <label for="exampleInputEmail1">Name</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" name="name">
+    </div>
+
+    <div class="input-group">
+        <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="clas">
+          <option selected>Class...</option>
+          <option value="가람반">가람반</option>
+          <option value="하늘반">하늘반</option>
+          <option value="개나리반">개나리반</option>
+        </select>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button">Select</button>
+        </div>
+  </div>
+  <p>
+  <div class="input-group">
+      <div class="custom-file">
+        <input type="file" name="upload" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+        <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+      </div>
+      <div class="input-group-append">
+        <button class="btn btn-outline-warning" type="button" id="inputGroupFileAddon04">Select</button>
+      </div>
+  </div>
+</p>
+  <button type="submit" class="btn btn-warning text-white">Add</button>
+</form>
+<hr>
+</div>
